@@ -1,5 +1,3 @@
-this is the current readme code, update it and provide me the new code as a .txt attachment
-
 <details>
 <summary>Prepare VPS</summary>
   
