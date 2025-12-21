@@ -179,7 +179,7 @@ LogLevel VERBOSE
 ```
 
 ```bash
-nano /etc/ssh/sshd_config.d/99-hardening.conf
+nano /etc/ssh/sshd_config.d/50-cloud-init.conf
 ```
 ```ini
 PasswordAuthentication no
