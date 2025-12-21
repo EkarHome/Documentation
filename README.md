@@ -1,6 +1,3 @@
-<details>
-<summary>Prepare VPS</summary>
-  
 ### Setting up the VPS
 ```bash
 echo -e "\e[32ms1######\\e[0m" && cat /etc/os-release  && echo -e "\e[31me1######\\e[0m" && echo #prints your OS identification (should show Debian GNU/Linux 12).
@@ -205,4 +202,3 @@ ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no ADMIN_USER@Y
 ssh -i $env:USERPROFILE\.ssh\KEY_NAME -o IdentitiesOnly=yes ADMIN_USER@YOUR_VPS_IP
 
 ```
-</details>
