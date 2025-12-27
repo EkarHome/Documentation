@@ -1,41 +1,149 @@
 ### Setting up the VPS
 ```bash
-echo -e "\e[32ms1######\\e[0m" && cat /etc/os-release  && echo -e "\e[31me1######\\e[0m" && echo #prints your OS identification (should show Debian GNU/Linux 12).
-echo -e "\e[32ms2######\\e[0m" && uname -a  && echo -e "\e[31me2######\\e[0m"  && echo #prints kernel version + architecture. Useful for troubleshooting and patch verification.
-echo -e "\e[32ms3######\\e[0m" && apt update && echo -e "\e[31me3######\\e[0m"  && echo #downloads the latest package index from Debian repos
-echo -e "\e[32ms4######\\e[0m" && apt -y full-upgrade && echo -e "\e[31me4######\\e[0m"  && echo #applies all upgrades and handles dependency changes safely.
-echo -e "\e[32ms5######\\e[0m" && apt -y autoremove --purge && echo -e "\e[31me5######\\e[0m"  && echo #removes unused dependencies and purges their configs.
-echo -e "\e[32ms6######\\e[0m" && apt -y autoclean && echo -e "\e[31me6######\\e[0m"  && echo #removes old downloaded package files.
-echo -e "\e[32ms7######\\e[0m" && sudo timedatectl set-timezone America/New_York && echo -e "\e[31me7######\\e[0m"  && echo #set the local time to nyc.
-echo -e "\e[32ms8######\\e[0m" && timedatectl && echo -e "\e[31me8######\\e[0m"  && echo #shows system time, timezone, and NTP status.
-echo -e "\e[32ms9######\\e[0m" && systemctl status systemd-timesyncd --no-pager && echo -e "\e[31me9######\\e[0m" && echo #shows whether Debian’s time sync service is running.
-echo -e "\e[32ms10######\\e[0m" && apt -y install sudo && echo -e "\e[31me10######\\e[0m" && echo #we will stop using root directly (major security step).
-echo -e "\e[32ms11######\\e[0m" && apt -y install curl && echo -e "\e[31me11######\\e[0m" && echo #Transfer data to/from URLs (HTTP APIs, downloads).
-echo -e "\e[32ms12######\\e[0m" && apt -y install wget && echo -e "\e[31me12######\\e[0m" && echo #Download files from web servers, robust retries.
-echo -e "\e[32ms13######\\e[0m" && apt -y install ca-certificates && echo -e "\e[31me13######\\e[0m" && echo #Trusted SSL roots for HTTPS certificate verification.
-echo -e "\e[32ms14######\\e[0m" && apt -y install gnupg2 && echo -e "\e[31me14######\\e[0m" && echo #Verify signatures and manage GPG keys.
-echo -e "\e[32ms15######\\e[0m" && apt -y install lsb-release && echo -e "\e[31me15######\\e[0m" && echo #Show distro/version info for scripts and support.
-echo -e "\e[32ms16######\\e[0m" && apt -y install ufw && echo -e "\e[31me16######\\e[0m" && echo #Simple firewall manager for inbound/outbound rules.
-echo -e "\e[32ms17######\\e[0m" && apt -y install fail2ban && echo -e "\e[31me17######\\e[0m" && echo #bans brute-force attempts (SSH, nginx, etc.).
-echo -e "\e[32ms18######\\e[0m" && apt -y install unattended-upgrades && echo -e "\e[31me18######\\e[0m" && echo #Automatically install security updates.
-echo -e "\e[32ms19######\\e[0m" && apt -y install apt-listchanges && echo -e "\e[31me19######\\e[0m" && echo #Display package changelogs before/after upgrades.
-echo -e "\e[32ms20######\\e[0m" && apt -y install vim-tiny && echo -e "\e[31me20######\\e[0m" && echo #Lightweight Vim editor for quick text edits.
-echo -e "\e[32ms21######\\e[0m" && apt -y install nano && echo -e "\e[31me21######\\e[0m" && echo #Simple terminal text editor.
-echo -e "\e[32ms22######\\e[0m" && apt -y install less && echo -e "\e[31me22######\\e[0m" && echo #Scroll and search through long text output.
-echo -e "\e[32ms23######\\e[0m" && apt -y install htop && echo -e "\e[31me23######\\e[0m" && echo #Interactive process viewer and system monitor.
-echo -e "\e[32ms24######\\e[0m" && apt -y install iotop && echo -e "\e[31me24######\\e[0m" && echo #Show processes using disk I/O.
-echo -e "\e[32ms25######\\e[0m" && apt -y install iftop && echo -e "\e[31me25######\\e[0m" && echo #Show bandwidth usage by network connection.
-echo -e "\e[32ms26######\\e[0m" && apt -y install net-tools && echo -e "\e[31me26######\\e[0m" && echo #Legacy networking tools like ifconfig/netstat.
-echo -e "\e[32ms27######\\e[0m" && apt -y install iproute2 && echo -e "\e[31me27######\\e[0m" && echo #Modern networking tools: ip, ss, tc.
-echo -e "\e[32ms28######\\e[0m" && apt -y install dnsutils && echo -e "\e[31me28######\\e[0m" && echo #DNS tools like dig and nslookup.
-echo -e "\e[32ms29######\\e[0m" && apt -y install lsof && echo -e "\e[31me29######\\e[0m" && echo #List open files and listening ports.
-echo -e "\e[32ms30######\\e[0m" && apt -y install psmisc && echo -e "\e[31me30######\\e[0m" && echo #Process utilities: killall, pstree, fuser.
-echo -e "\e[32ms31######\\e[0m" && apt -y install rsyslog && echo -e "\e[31me31######\\e[0m" && echo #System log daemon for collecting/writing logs.
-echo -e "\e[32ms32######\\e[0m" && apt -y install logrotate && echo -e "\e[31me32######\\e[0m" && echo #Rotate/compress logs to prevent disk filling.
-echo -e "\e[32ms33######\\e[0m" && apt -y install openssh-server && echo -e "\e[31me33######\\e[0m" && echo #Enable SSH remote login to the server.
-echo -e "\e[32ms33.1######\\e[0m" && systemctl enable --now ssh && echo -e "\e[31me33.1######\\e[0m" && echo #Enable SSH remote login to the server.
-echo -e "\e[32ms33.2######\\e[0m" && systemctl status ssh --no-pager && echo -e "\e[31me33.2######\\e[0m" && echo #Enable SSH remote login to the server.
-echo -e "\e[32ms34######\\e[0m" && ss -tulpn && echo -e "\e[31me34######\\e[0m" && echo #lists all listening TCP/UDP sockets plus the owning process (-p) and numeric ports (-n).
+# Show OS release details (important to confirm you’re on the expected distro/version
+# so you apply the right hardening steps and security guidance for Debian 12).
+cat /etc/os-release
+
+# Show kernel + arch (security-wise: confirms you’re running a modern kernel and helps
+# verify you actually rebooted into a patched kernel after upgrades).
+uname -a
+
+# Refresh APT package lists (security-wise: you can’t reliably install security fixes
+# or verify “latest” versions without up-to-date package indexes).
+apt update
+
+# Upgrade everything (security-wise: closes known vulnerabilities in installed packages;
+# full-upgrade also handles dependency changes that sometimes carry security fixes).
+apt -y full-upgrade
+
+# Remove unused packages (security-wise: fewer packages = smaller attack surface;
+# purging configs can remove old/unsafe leftovers).
+apt -y autoremove --purge
+
+# Clean old cached packages (security-wise: reduces disk usage and removes stale packages;
+# not a huge “security” step, but keeps the system tidy and less error-prone).
+apt -y autoclean
+
+# Set timezone (security-wise: correct timestamps matter for auditing, incident response,
+# fail2ban bans, log correlation, and forensics).
+sudo timedatectl set-timezone America/New_York
+
+# Verify time + NTP status (security-wise: accurate time prevents messy logs and helps
+# security tools work correctly; wrong time can break TLS validation and monitoring).
+timedatectl
+
+# Check time sync service (security-wise: consistent time helps log integrity, alerting,
+# certificate validation, and troubleshooting weird auth/security issues).
+systemctl status systemd-timesyncd --no-pager
+
+# Install sudo (security-wise: lets you stop using root directly; supports least-privilege
+# admin and audit trails (who ran what) via sudo logs).
+apt -y install sudo
+
+# Install curl (security-wise: needed to fetch repository keys, verify endpoints,
+# test HTTPS/TLS, and pull security tooling/scripts from trusted sources).
+apt -y install curl
+
+# Install wget (security-wise: similar to curl—useful for downloading updates/files;
+# choose trusted sources and verify hashes/signatures when possible).
+apt -y install wget
+
+# Install CA certificates (security-wise: enables proper TLS verification for HTTPS;
+# without this, downloads/APIs may fail or people may bypass verification—dangerous).
+apt -y install ca-certificates
+
+# Install GnuPG (security-wise: you can verify signed repositories and packages;
+# prevents “trust me bro” installs and helps avoid tampered software).
+apt -y install gnupg2
+
+# Install lsb-release (security-wise: many official install scripts detect distro/version;
+# reduces the chance of running the wrong commands that weaken security).
+apt -y install lsb-release
+
+# Install UFW firewall manager (security-wise: a firewall is a primary layer of defense;
+# you explicitly allow only required ports (e.g., 22/80/443) and block everything else).
+apt -y install ufw
+
+# Install Fail2ban (security-wise: mitigates brute-force attacks by banning IPs after
+# repeated login failures—especially important for SSH exposed to the internet).
+apt -y install fail2ban
+
+# Install unattended-upgrades (security-wise: automatically applies security patches
+# so you’re not exposed for weeks because you forgot to update).
+apt -y install unattended-upgrades
+
+# Install apt-listchanges (security-wise: shows important package change notices;
+# helps you spot security-relevant behavior changes, service restarts, or warnings).
+apt -y install apt-listchanges
+
+# Install vim-tiny (security-wise: you’ll edit config files frequently; having a reliable
+# editor reduces mistakes that accidentally open services or weaken configs).
+apt -y install vim-tiny
+
+# Install nano (security-wise: same reason—quick safe edits; fewer “I’ll do it later”
+# delays when you need to change a critical config right now).
+apt -y install nano
+
+# Install less (security-wise: safely view long configs/logs without altering them;
+# helpful for reviewing sshd_config, nginx configs, fail2ban logs, etc.).
+apt -y install less
+
+# Install htop (security-wise: helps you spot suspicious processes, high CPU miners,
+# unknown services, and unusual resource usage quickly).
+apt -y install htop
+
+# Install iotop (security-wise: ransomware/malware often causes heavy disk writes;
+# iotop helps detect abnormal disk activity and the responsible process).
+apt -y install iotop
+
+# Install iftop (security-wise: helps detect unexpected outbound traffic (data exfiltration),
+# command-and-control traffic, or weird connections).
+apt -y install iftop
+
+# Install net-tools (security-wise: legacy tools; not required, but sometimes useful for
+# troubleshooting. Prefer iproute2/ss; keeping extras minimal reduces attack surface slightly).
+apt -y install net-tools
+
+# Install iproute2 (security-wise: modern, maintained networking tools; needed to inspect
+# routes, interfaces, and sockets accurately (critical for exposure checks)).
+apt -y install iproute2
+
+# Install dnsutils (security-wise: helps verify DNS, troubleshoot hijacks/misconfig,
+# and validate domain resolution for your services and SSL certificates).
+apt -y install dnsutils
+
+# Install lsof (security-wise: identify which process is bound to a port or holding a file;
+# great for tracking unknown listeners or suspicious file locks).
+apt -y install lsof
+
+# Install psmisc (security-wise: tools like pstree help visualize process trees (spot malware
+# chains); killall/fuser help safely stop rogue processes or services).
+apt -y install psmisc
+
+# Install rsyslog (security-wise: strengthens logging options; you can forward logs to another
+# server later (centralized logs help detect tampering and preserve evidence)).
+apt -y install rsyslog
+
+# Install logrotate (security-wise: prevents logs from filling disk (DoS risk) and keeps
+# logs manageable for auditing; ensures old logs are archived/rotated correctly).
+apt -y install logrotate
+
+# Install OpenSSH server (security-wise: required for remote administration; once installed,
+# you must harden it (keys only, disable root login, limit users, etc.)).
+apt -y install openssh-server
+
+# Enable and start SSH (security-wise: makes remote access reliable; BUT you should ensure
+# firewall rules and ssh hardening are applied to reduce attack exposure).
+systemctl enable --now ssh
+
+# Check SSH status (security-wise: verify it’s running as expected and not failing due to
+# config errors—misconfigurations can cause you to “open up” unsafe quick fixes).
+systemctl status ssh --no-pager
+
+# List listening ports + owning processes (security-wise: confirms what’s actually exposed
+# to the network; you want the smallest possible list—usually just SSH + web ports).
+ss -tulpn
+
 ```
 
 ### Disable LLMNR / mDNS (remove port 5355 exposure)
