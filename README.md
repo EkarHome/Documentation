@@ -1,8 +1,10 @@
 ### Setting up the VPS
+- [ ] cat /etc/os-release
+- [ ] uname -a
 ```bash
 # Show OS release details (important to confirm you’re on the expected distro/version
 # so you apply the right hardening steps and security guidance for Debian 12).
-cat /etc/os-release
+- [ ] cat /etc/os-release
 
 # Show kernel + arch (security-wise: confirms you’re running a modern kernel and helps
 # verify you actually rebooted into a patched kernel after upgrades).
