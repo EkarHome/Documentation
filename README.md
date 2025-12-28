@@ -24,6 +24,8 @@ apt -y autoremove --purge
 # not a huge “security” step, but keeps the system tidy and less error-prone).
 apt -y autoclean
 
+reboot
+uname -a
 # Set timezone (security-wise: correct timestamps matter for auditing, incident response,
 # fail2ban bans, log correlation, and forensics).
 sudo timedatectl set-timezone America/New_York
@@ -273,6 +275,8 @@ usermod -aG sudo [uname]
 # Verify group membership.
 # Security: confirms the user can admin before you disable root login.
 id [uname]  # Expected: includes sudo
+
+install -d -m 700 -o ekardeploy -g ekardeploy /home/ekardeploy/.ssh
 ```
 
 ```powershell
